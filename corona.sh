@@ -20,7 +20,7 @@ fi
 read -p 'Download/Update data? [Y/N]: ' answer
 if [ $answer == y ]
 then
-	echo "Downloading/Updating data... ████████████████ 96%"
+	echo "Downloading/Updating data..."
 	curl -s https://corona.lmao.ninja/all                   > global-data
 	curl -s https://corona.lmao.ninja/countries/us          > us-data
 	curl -s https://corona.lmao.ninja/states                > state-data
@@ -79,7 +79,7 @@ fi
 read -p 'Lates News? [Y/N]: ' answer
 if [ $answer == y ] 
 then
-	echo "Downloading news... ████████████████ 91%"
+	echo "Downloading news..."
 	curl -s  https://corona-stats.online/updates > news-data
 	cat news-data
 	echo ""
