@@ -6,7 +6,7 @@
 # Author: Carlos Milan
 # Last update: 03/26/2020
 # --------------------------------------------------------
- 
+
 #Input states as parameters to the scrip or have them presets
 #If no parameters, use to presets
 if [ "$#" -eq 0 ]
