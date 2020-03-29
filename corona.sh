@@ -30,7 +30,7 @@ then
         	sed 's/{//g ; s/"//g ; s/}//g' > output-data
 
 	#US Total
-	awk -F ',' '{print "US," $8"," $10"," $9"," $11}' us-data |
+	awk -F ',' '{print "US," $9"," $10"," $9"," $11}' us-data |
         	sed 's/"//g' >> output-data
 
 	#States
