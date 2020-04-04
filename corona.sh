@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #---------------------------------------------------------
 # Coronavirus data script
 # Data source: https://github.com/NovelCOVID/API
