@@ -18,7 +18,7 @@ fi
 
 
 read -p 'Download/Update data? [Y/N]: ' answer
-if [ $answer == y ]
+if [ $answer == y ];
 then
 	echo "Downloading/Updating data..."
 	curl -s https://corona.lmao.ninja/all                   > global-data
