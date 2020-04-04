@@ -1,11 +1,11 @@
 #!/bin/bash
-#---------------------------------------------------------
+#--------------------------------------------------------------------
 # Coronavirus data script
 # Data source: https://github.com/NovelCOVID/API
 # News source: https://github.com/sagarkarira/coronavirus-tracker-cli
 # Author: Carlos Milan
-# Last update: 03/26/2020 rev
-# --------------------------------------------------------
+# Last update: 04/04/2020
+# -------------------------------------------------------------------
 
 #Input states as parameters to the scrip or have them presets
 #If no parameters, use to presets
