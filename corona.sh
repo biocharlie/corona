@@ -46,8 +46,8 @@ then
 	done
 
 	#Comment following two lines to validade data if source formating change
-#	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths\n$(cat output-data)" > output-data
-#	sed -i 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g' output-data
+	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths\n$(cat output-data)" > output-data
+	sed -i 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g' output-data
 
 	if grep -q html ./output-data
 	then
