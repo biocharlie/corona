@@ -26,7 +26,7 @@ then
 	curl -s https://corona.lmao.ninja/states                > state-data
 
 	#Global data
-	awk -F ',' '{print "Global," $1"," $2}' global-data |
+	awk -F ',' '{print "Global," $1"," $3"," $2"," $4}' global-data |
         	sed 's/{//g ; s/"//g ; s/}//g' > output-data
 
 	#US Total
@@ -45,8 +45,9 @@ then
         		sed '1,/:/s/:// ; s/\[//g  ; s/{//g ; s/state//g ; s/"//g ; s/}//g' >> output-data
 	done
 
-	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths\n$(cat output-data)" > output-data
-	sed -i 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g' output-data
+	#Comment following two lines to validade data if source formating change
+#	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths\n$(cat output-data)" > output-data
+#	sed -i 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g' output-data
 
 	if grep -q html ./output-data
 	then
