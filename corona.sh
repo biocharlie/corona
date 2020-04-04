@@ -11,7 +11,7 @@
 #If no parameters, use to presets
 if [ "$#" -eq 0 ];
 then
-	StateArray=( "Wisconsin" "Puerto Rico" )
+	StateArray=("Wisconsin" "Puerto Rico")
 else
 	StateArray=( "$@" )
 fi
