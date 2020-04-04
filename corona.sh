@@ -9,7 +9,7 @@
 
 #Input states as parameters to the scrip or have them presets
 #If no parameters, use to presets
-if [ "$#" -eq 0 ]
+if [ "$#" -eq 0 ];
 then
 	StateArray=("Wisconsin" "Puerto Rico" )
 else
@@ -18,7 +18,7 @@ fi
 
 
 read -p 'Download/Update data? [Y/N]: ' answer
-if [ $answer == y ];
+if [ $answer == y ]
 then
 	echo "Downloading/Updating data..."
 	curl -s https://corona.lmao.ninja/all                   > global-data
