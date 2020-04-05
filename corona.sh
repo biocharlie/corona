@@ -30,7 +30,7 @@ then
         	sed 's/{//g ; s/"//g ; s/}//g' > output-data
 
 	#US Total
-	awk -F ',' '{print "US," $8"," $10"," $9"," $11}' us-data |
+	awk -F ',' '{print "US," $9"," $11"," $10"," $12}' us-data |
         	sed 's/"//g' >> output-data
 
 	#States
@@ -48,6 +48,7 @@ then
 	#Comment following two lines to validade data if source formating change
 	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths\n$(cat output-data)" > output-data
 	sed -i 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g' output-data
+#	sed -i "" 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g' output-data #use this line instead on the above one if running an older version of sed (like MacOS)
 
 	if grep -q html ./output-data
 	then
