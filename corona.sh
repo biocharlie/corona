@@ -4,7 +4,7 @@
 # Data source: https://github.com/NovelCOVID/API
 # News source: https://github.com/sagarkarira/coronavirus-tracker-cli
 # Author: Carlos Milan
-# Last update: 04/04/2020
+# Last update: 04/05/2020
 # -------------------------------------------------------------------
 
 #Input states as parameters to the scrip or have them presets
