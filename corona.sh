@@ -26,11 +26,11 @@ then
 	curl -s https://corona.lmao.ninja/states                > state-data
 
 	#Global data
-	awk -F ',' '{print "Global," $2"," $4"," $3"," $5}' global-data |
+	awk -F ',' '{print "Global," $2"," $4"," $3"," $5"," $1}' global-data |
         	sed 's/{//g ; s/"//g ; s/}//g' > output-data
 
 	#US Total
-	awk -F ',' '{print "US," $9"," $11"," $10"," $12}' us-data |
+	awk -F ',' '{print "US," $9"," $11"," $10"," $12"," $8}' us-data |
         	sed 's/"//g' >> output-data
 
 	#States
@@ -45,10 +45,19 @@ then
         		sed '1,/:/s/:// ; s/\[//g  ; s/{//g ; s/state//g ; s/"//g ; s/}//g' >> output-data
 	done
 
+	#Updated date
+	updatedglobal=$(awk -F ',|:' 'NR==1{print $11}' output-data)
+	datemillisecglobal=$(sed 's/.\{3\}$//' <<< "$updatedglobal")
+	dateglobalformated=$(date -d '@'$datemillisecglobal)
+	updatedus=$(awk -F ',|:' 'NR==2{print $11}' output-data)
+	datemillisecus=$(sed 's/.\{3\}$//' <<< "$updatedglobal")
+	dateusformated=$(date -d '@'$datemillisecus)
+	sed -i "s/$updatedglobal/$dateglobalformated/g ; s/$updatedus/$dateusformated/g" output-data #Add "" after -i to makeit work in older versions of sed (like MacOS)
+
 	#Comment following two lines to validade data if source formating change
-	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths\n$(cat output-data)" > output-data
-	sed -i 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g' output-data
-#	sed -i "" 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g' output-data #use this line instead on the above one if running an older version of sed (like MacOS)
+	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths,LastUpdated\n$(cat output-data)" > output-data
+	sed -i 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g ; s/updated://g' output-data #Add "" after -i to makeit work in older versions of sed (like MacOS)
+
 
 	if grep -q html ./output-data
 	then
