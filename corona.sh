@@ -30,8 +30,8 @@ then
         	sed 's/{//g ; s/"//g ; s/}//g' > output-data
 
 	#US Total
-	awk -F ',' '{print "US," $9"," $11"," $10"," $12"," $8}' us-data |
-        	sed 's/"//g' >> output-data
+	awk -F ',' '{print "US," $9"," $11"," $10"," $12"," $1}' us-data |
+        	sed 's/{//g ; s/"//g' >> output-data
 
 	#States
 	for StateElement in "${StateArray[@]}"
