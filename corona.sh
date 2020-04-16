@@ -4,7 +4,7 @@
 # Data source: https://github.com/NovelCOVID/API
 # News source: https://github.com/sagarkarira/coronavirus-tracker-cli
 # Author: Carlos Milan
-# Last update: 04/13/2020
+# Last update: 04/16/2020
 # -------------------------------------------------------------------
 
 #Input states as parameters to the scrip or have them presets
@@ -26,11 +26,11 @@ then
 	curl -s https://corona.lmao.ninja/states                > state-data
 
 	#Global data
-	awk -F ',' '{print "Global," $2"," $4"," $3"," $5"," $1}' global-data |
+	awk -F ',' '{print "Global," $2"," $4"," $3"," $5"," $11"," $1}' global-data |
         	sed 's/{//g ; s/"//g ; s/}//g' > output-data
 
 	#US Total
-	awk -F ',' '{print "US," $9"," $11"," $10"," $12"," $1}' us-data |
+	awk -F ',' '{print "US," $9"," $11"," $10"," $12"," $18"," $1}' us-data |
         	sed 's/{//g ; s/"//g' >> output-data
 
 	#States
@@ -41,22 +41,23 @@ then
 		todaycases="$((statename+2))"
 		death="$((statename+3))"
 		todaydeath="$((statename+4))"
-		awk -F ',' '{print $'$statename' "," $'$cases' "," $'$death' "," $'$todaycases' "," $'$todaydeath'}' state-data |
+		tests="$((statename+6))"
+		awk -F ',' '{print $'$statename' "," $'$cases' "," $'$death' "," $'$todaycases' "," $'$todaydeath' "," $'$tests'}' state-data |
         		sed '1,/:/s/:// ; s/\[//g  ; s/{//g ; s/state//g ; s/"//g ; s/}//g' >> output-data
 	done
 
 	#Updated date
-	updatedglobal=$(awk -F ',|:' 'NR==1{print $11}' output-data)
+	updatedglobal=$(awk -F ',|:' 'NR==1{print $13}' output-data)
 	datemillisecglobal=$(sed 's/.\{3\}$//' <<< "$updatedglobal")
 	dateglobalformated=$(date -d '@'$datemillisecglobal)
-	updatedus=$(awk -F ',|:' 'NR==2{print $11}' output-data)
+	updatedus=$(awk -F ',|:' 'NR==2{print $13}' output-data)
 	datemillisecus=$(sed 's/.\{3\}$//' <<< "$updatedglobal")
 	dateusformated=$(date -d '@'$datemillisecus)
 	sed -i "s/$updatedglobal/$dateglobalformated/g ; s/$updatedus/$dateusformated/g" output-data #Add "" after -i to makeit work in older versions of sed (like MacOS)
 
 	#Comment following two lines to validade data if source formating change
-	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths,LastUpdated\n$(cat output-data)" > output-data
-	sed -i 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g ; s/updated://g' output-data #Add "" after -i to makeit work in older versions of sed (like MacOS)
+	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths,Tests,LastUpdated\n$(cat output-data)" > output-data
+	sed -i 's/cases://g ; s/deaths://g ; s/todayCases://g ; s/todayDeaths://g ; s/updated://g ; s/tests://g' output-data #Add "" after -i to makeit work in older versions of sed (like MacOS)
 
 
 	if grep -q html ./output-data
