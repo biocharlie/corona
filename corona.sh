@@ -4,7 +4,7 @@
 # Data source: https://github.com/NovelCOVID/API
 # News source: https://github.com/sagarkarira/coronavirus-tracker-cli
 # Author: Carlos Milan
-# Last update: 04/16/2020
+# Last update: 04/17/2020
 # -------------------------------------------------------------------
 
 #Input states as parameters to the scrip or have them presets
@@ -21,9 +21,9 @@ read -p 'Download/Update data? [Y/N]: ' answer
 if [ $answer == y ]
 then
 	echo "Downloading/Updating data..."
-	curl -s https://corona.lmao.ninja/all                   > global-data
-	curl -s https://corona.lmao.ninja/countries/us          > us-data
-	curl -s https://corona.lmao.ninja/states                > state-data
+	curl -s https://corona.lmao.ninja/v2/all                   > global-data
+	curl -s https://corona.lmao.ninja/v2/countries/us          > us-data
+	curl -s https://corona.lmao.ninja/v2/states                > state-data
 
 	#Global data
 	awk -F ',' '{print "Global," $2"," $4"," $3"," $5"," $11"," $1}' global-data |
