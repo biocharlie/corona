@@ -4,7 +4,7 @@
 # Data source: https://github.com/NovelCOVID/API
 # News source: https://github.com/sagarkarira/coronavirus-tracker-cli
 # Author: Carlos Milan
-# Last update: 04/17/2020
+# Last update: 05/06/2020
 # -------------------------------------------------------------------
 
 #Input states as parameters to the scrip or have them presets
@@ -37,23 +37,25 @@ then
 	for StateElement in "${StateArray[@]}"
 	do
 		statename="$(cat state-data | tr ',' '\n' | grep -n "$StateElement" | cut -d : -f 1)"
-		cases="$((statename+1))"
-		todaycases="$((statename+2))"
-		death="$((statename+3))"
-		todaydeath="$((statename+4))"
-		tests="$((statename+6))"
+		cases="$((statename+2))"
+		todaycases="$((statename+3))"
+		death="$((statename+4))"
+		todaydeath="$((statename+5))"
+		tests="$((statename+7))"
 		awk -F ',' '{print $'$statename' "," $'$cases' "," $'$death' "," $'$todaycases' "," $'$todaydeath' "," $'$tests'}' state-data |
         		sed '1,/:/s/:// ; s/\[//g  ; s/{//g ; s/state//g ; s/"//g ; s/}//g' >> output-data
 	done
 
 	#Updated date
-	updatedglobal=$(awk -F ',|:' 'NR==1{print $13}' output-data)
-	datemillisecglobal=$(sed 's/.\{3\}$//' <<< "$updatedglobal")
-	dateglobalformated=$(date -d '@'$datemillisecglobal)
-	updatedus=$(awk -F ',|:' 'NR==2{print $13}' output-data)
-	datemillisecus=$(sed 's/.\{3\}$//' <<< "$updatedglobal")
-	dateusformated=$(date -d '@'$datemillisecus)
-	sed -i "s/$updatedglobal/$dateglobalformated/g ; s/$updatedus/$dateusformated/g" output-data #Add "" after -i to makeit work in older versions of sed (like MacOS)
+	timeglobal=$(awk -F ',|:' 'NR==1{print $13}' output-data)
+	timemillisecglobal=$(sed 's/.\{3\}$//' <<< "$timeglobal")
+	timeformatedglobal=$(date -d '@'$timemillisecglobal)
+
+	timeus=$(awk -F ',|:' 'NR==2{print $13}' output-data)
+	timemillisecus=$(sed 's/.\{3\}$//' <<< "$timeus")
+	timeformatedus=$(date -d '@'$timemillisecus)
+
+	sed -i "s/$timeglobal/$timeformatedglobal/g ; s/$timeus/$timeformatedus/g" output-data #Add "" after -i to makeit work in older versions of sed (like MacOS)
 
 	#Comment following two lines to validade data if source formating change
 	echo -e "Location,Cases,Deaths,TodayCases,TodayDeaths,Tests,LastUpdated\n$(cat output-data)" > output-data
