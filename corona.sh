@@ -4,7 +4,7 @@
 # Data source: https://github.com/NovelCOVID/API
 # News source: https://github.com/sagarkarira/coronavirus-tracker-cli
 # Author: Carlos Milan
-# Last update: 05/06/2020
+# Last update: 05/17/2020
 # -------------------------------------------------------------------
 
 #Input states as parameters to the scrip or have them presets
@@ -41,7 +41,7 @@ then
 		todaycases="$((statename+3))"
 		death="$((statename+4))"
 		todaydeath="$((statename+5))"
-		tests="$((statename+7))"
+		tests="$((statename+9))"
 		awk -F ',' '{print $'$statename' "," $'$cases' "," $'$death' "," $'$todaycases' "," $'$todaydeath' "," $'$tests'}' state-data |
         		sed '1,/:/s/:// ; s/\[//g  ; s/{//g ; s/state//g ; s/"//g ; s/}//g' >> output-data
 	done
