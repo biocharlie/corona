@@ -2,9 +2,8 @@
 #--------------------------------------------------------------------
 # Coronavirus data script
 # Data source: https://github.com/NovelCOVID/API
-# News source: https://github.com/sagarkarira/coronavirus-tracker-cli
 # Author: Carlos Milan
-# Last update: 05/17/2020
+# Last update: 05/31/2020
 # -------------------------------------------------------------------
 
 #Input states as parameters to the scrip or have them presets
@@ -89,15 +88,3 @@ else
 	column -t -s $',' output-data
 	echo "------------------------------------------------------------------------------"
 fi
-
-read -p 'Lates News? [Y/N]: ' answer
-if [ $answer == y ] 
-then
-	echo "Downloading news..."
-	curl -s  https://corona-stats.online/updates > news-data
-	cat news-data
-	echo ""
-else
-	:
-fi
-
