@@ -25,11 +25,11 @@ then
 	curl -s https://corona.lmao.ninja/v2/states                > state-data
 
 	#Global data
-	awk -F ',' '{print "Global," $2"," $4"," $3"," $5"," $11"," $1}' global-data |
+	awk -F ',' '{print "Global," $2"," $4"," $3"," $5"," $12"," $1}' global-data |
         	sed 's/{//g ; s/"//g ; s/}//g' > output-data
 
 	#US Total
-	awk -F ',' '{print "US," $9"," $11"," $10"," $12"," $18"," $1}' us-data |
+	awk -F ',' '{print "US," $9"," $11"," $10"," $12"," $19"," $1}' us-data |
         	sed 's/{//g ; s/"//g' >> output-data
 
 	#States
@@ -40,7 +40,7 @@ then
 		todaycases="$((statename+3))"
 		death="$((statename+4))"
 		todaydeath="$((statename+5))"
-		tests="$((statename+9))"
+		tests="$((statename+10))"
 		awk -F ',' '{print $'$statename' "," $'$cases' "," $'$death' "," $'$todaycases' "," $'$todaydeath' "," $'$tests'}' state-data |
         		sed '1,/:/s/:// ; s/\[//g  ; s/{//g ; s/state//g ; s/"//g ; s/}//g' >> output-data
 	done
